@@ -2,7 +2,7 @@
 # DO NO CALL DIRECTLY
 class cassandra::service {
 
-  service { 'cassandra':
+  service { 'dse':
     ensure     => running,
     enable     => true,
     hasstatus  => true,
