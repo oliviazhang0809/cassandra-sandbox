@@ -1,0 +1,14 @@
+---
+:backends:
+  - yaml
+
+:hierarchy:
+  - prestage
+  - node/%{role}
+  - env/%{environment}/common
+  - common
+
+:yaml:
+  :datadir: /etc/puppet/hieradata
+
+:merge_behavior: deep

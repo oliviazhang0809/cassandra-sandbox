@@ -1,0 +1,5 @@
+[datastax]
+name = DataStax Repo for Apache Cassandra
+baseurl = http://angarrett_paypal.com:lhRH9DzY47LwD4J@rpm.datastax.com/enterprise
+enabled = 1
+gpgcheck = 0

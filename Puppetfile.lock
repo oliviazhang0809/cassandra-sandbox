@@ -1,0 +1,10 @@
+FORGE
+  remote: https://forgeapi.puppetlabs.com
+  specs:
+    nanliu-staging (1.0.2)
+    puppetlabs-stdlib (4.4.0)
+
+DEPENDENCIES
+  nanliu-staging (= 1.0.2)
+  puppetlabs-stdlib (= 4.4.0)
+
