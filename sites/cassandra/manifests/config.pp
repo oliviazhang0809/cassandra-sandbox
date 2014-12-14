@@ -1,5 +1,6 @@
 # == Class: cassandra::config
 class cassandra::config {
+  $listen_address = $::ipaddress_eth1
   
   # check cassandra.yaml
   file { 'cassandra.yaml':
