@@ -4,6 +4,6 @@ class cassandra::install {
 
   # [ install dse-full ]
   package { 'dse-full':
-    ensure => '4.5.3-1',
+    ensure => hiera('dse_version'),
   }
 }

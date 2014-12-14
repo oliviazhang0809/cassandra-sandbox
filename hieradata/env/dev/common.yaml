@@ -1,2 +1,3 @@
 ---
 seeds: '"%{seed_ip}"'
+dse_version: '4.5.3-1'

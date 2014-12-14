@@ -15,4 +15,13 @@ gem install -v=2.2.8 --no-rdoc --no-ri CFPropertyList
 gem install -q -v=1.1.1 --no-rdoc --no-ri hiera-file
 gem install -q -v=1.0.1 --no-rdoc --no-ri deep_merge
 
+# install librarian-puppet to auto import modules
+which librarian-puppet
+if [ $? -ne 0 ]; then
+  echo "Installing: gem librarian-puppet"
+  sudo gem install librarian-puppet -v=1.3.2
+fi
+echo "Importing modules"
+librarian-puppet install --verbose
+
 puppet agent --enable
