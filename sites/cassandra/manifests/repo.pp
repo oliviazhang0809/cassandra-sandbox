@@ -12,7 +12,7 @@ class cassandra::repo {
 
   # change 'https' => 'http'
   file { 'epel.repo':
-    ensure => present,
+    ensure  => present,
     path    => '/etc/yum.repos.d/epel.repo',
     owner   => 'cassandra',
     group   => 'cassandra',
@@ -20,7 +20,7 @@ class cassandra::repo {
   }
 
   # install cassandra - epel
-  $package_source = "http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm"
+  $package_source = 'http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm'
 
   # get the package
   staging::file { 'epel-package':

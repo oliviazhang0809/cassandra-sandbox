@@ -1,0 +1,29 @@
+package com.paypal.stingray.duke.autogen.model
+
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+{{#imports}}import {{import}}
+{{/imports}}
+
+{{#models}}
+{{#model}}
+
+/**
+ * AUTO GENERATED FILE
+ *    DO NOT EDIT
+ */
+case class {{classname}} (
+  {{#vars}}
+  {{#isOptionLong}}
+  @JsonDeserialize(contentAs=classOf[java.lang.Long])
+  {{/isOptionLong}}
+  {{#isOptionDouble}}
+  @JsonDeserialize(contentAs=classOf[java.lang.Double])
+  {{/isOptionDouble}}
+  @JsonProperty("{{baseName}}")
+  {{name}}: {{#isNotRequired}}Option[{{/isNotRequired}}{{datatype}}{{#isNotRequired}}]{{/isNotRequired}}  {{#hasMore}},{{/hasMore}}
+  {{newline}}
+  {{/vars}}
+)
+{{/model}}
+{{/models}}

@@ -1,12 +1,12 @@
-# Metrics Setup Instructions
+# Cassandra Vagrant Setup Instructions
 
 ## Introduction
 
 This program is a multi-VM Vagrant-based Puppet development environment used for creating and testing cassandra cluster.
 
-* `seed` - the cassandra seed node
-* `child1` - cassandra client nodes
-* `child2` - cassandra client nodes
+* `seed` - cassandra seed node
+* `child1` - cassandra client node
+* `child2` - cassandra client node
 
 You can add more nodes by duplicating the `seed` or `child` node -- only `hostname` and `ip` need to be changed.
 Current setup is a three nodes cluster with one seed node. You can easily add more seed nodes by changing the value of `seed_ip` in `Vagrantfile`. This is the value to be passed into `cassandra.yaml` file to configure the cluster.
@@ -42,7 +42,7 @@ You can easily bring up your machine by
 
 In the prompt, you can specify the `provider` of your machines: v -- virtualbox, o -- openstack.
 
-If you are running with c3 instances, you need to set up `seed_ip` in `Vagrantfile` after you have seed node up so that the client nodes can have a recognizable ip address to join the cluster. Currently there is no way to automate this process.
+If you are running with c3 instances, you need to set up `seed_ip` in `Vagrantfile` after you have seed node up so that the client nodes can have a recognizable ip address to join the cluster. Currently there is no way to automate this process since I'm not sure how to set up fixed IP address for c3 instance.
 
 ## Check Your Handiwork 
 You can easily log in to your box by

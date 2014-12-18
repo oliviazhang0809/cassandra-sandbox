@@ -1,0 +1,122 @@
+{
+	"apiVersion": "1.0.0",
+	"swaggerVersion": "1.2",
+	"basePath": "https://api.paypal.com/v1/duke/",
+  "resourcePath": "/data",
+	"produces": [
+		"application/json"
+	],
+  "apis": [
+    {
+      "path": "/data/{group}/{table}/{key}",
+      "description": "operations on a particular row of data",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get all data for key",
+          "notes": "Return JSON containing the fields and values for the data stored under this key.",
+          "type": "string",
+          "nickname": "getWithKey",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "group",
+              "required": true,
+              "type": "string",
+              "paramType": "path"
+            },
+            {
+              "name": "table",
+              "required": true,
+              "type": "string",
+              "paramType": "path"
+            },
+            {
+              "name": "key",
+              "required": true,
+              "type": "string",
+              "paramType": "path"
+            },
+            {
+              "name": "field",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": true,
+              "description": "Selects individual fields to filter for in the response. Repeat parameter to specify more than one."
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "summary": "Update data, insert if does not exist",
+          "notes": "Store field values under this key. Request body MUST be a JSON object with field names and their values.",
+          "type": "string",
+          "nickname": "updateWithKey",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "group",
+              "required": true,
+              "type": "string",
+              "paramType": "path"
+            },
+            {
+              "name": "table",
+              "required": true,
+              "type": "string",
+              "paramType": "path"
+            },
+            {
+              "name": "key",
+              "required": true,
+              "type": "string",
+              "paramType": "path"
+            },
+            {
+              "name": "body",
+              "required": true,
+              "type": "string",
+              "paramType": "body",
+              "description": "JSON object with field names and their values"
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "summary": "Clear data for the given key",
+          "notes": "Delete every field stored under this key, and remove the key from the data store.",
+          "type": "void",
+          "nickname": "deleteWithKey",
+          "parameters": [
+            {
+              "name": "group",
+              "required": true,
+              "type": "string",
+              "paramType": "path"
+            },
+            {
+              "name": "table",
+              "required": true,
+              "type": "string",
+              "paramType": "path"
+            },
+            {
+              "name": "key",
+              "required": true,
+              "type": "string",
+              "paramType": "path"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

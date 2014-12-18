@@ -1,0 +1,54 @@
+package com.paypal.stingray.duke.autogen.api
+
+import spray.routing.Directives._
+import spray.routing.RequestContext
+import com.paypal.stingray.common.internal.actor.ActorSystemComponent
+import com.paypal.cascade.http.resource._
+import scala.util.Try
+
+{{#imports}}import {{import}}
+{{/imports}}
+
+/**
+ * AUTO GENERATED FILE
+ *     DO NOT EDIT
+ *
+ * To modify the route, alter the Swagger template accordingly.
+ *
+ * To access the route mix in this component and refer to
+ * <code>{{baseName}}Api.route</code>
+ *
+ */
+trait {{className}}Component {
+  {{#resources}}
+    {{^with?}}self: {{/with?}}{{#with?}}with {{/with?}}{{resourceClassName}}Component
+  {{/resources}}
+  with ActorSystemComponent
+  =>
+
+  // scalastyle:off whitespace.end.of.line line.size.limit
+  val {{baseName}}Api = new {{capitalizedBaseName}}Api()
+
+  class {{capitalizedBaseName}}Api {
+
+    val {{baseName}}Route =
+      pathPrefix("v1" / "duke" / "{{apiPathName}}") {
+{{#operations}}
+{{#operation}}
+{{newline}}
+        ({{{path}}} & {{#allParams}}{{#formParameter}}formFields("{{baseName}}".as[{{dataType}}]{{^required}}.?{{/required}}) & {{/formParameter}}{{#bodyParameter}}entity(as[String]) & {{/bodyParameter}}{{#queryParameter}}{{^hasMore}}parameterMultiMap & {{/hasMore}}{{/queryParameter}}{{/allParams}}{{httpMethod}}) { ({{#allParams}}{{^queryParameter}}{{paramName}}{{/queryParameter}}{{#queryParameter}}{{^hasMore}}queryParameters{{/hasMore}}{{/queryParameter}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) =>
+            {{#queryParams}}
+            val {{paramName}} = queryParameters.get("{{paramName}}"){{^allowMultiple}}.map(_(0)){{/allowMultiple}}{{! ignore me }}
+            {{/queryParams}}
+            ResourceDriver.serve({{baseResourceName}}ResourceActorGen,
+                request => Try (
+                {{requestTypeClassName}}({{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}))
+            )
+        } {{#hasMoreOps}} ~{{/hasMoreOps}}
+{{/operation}}
+{{/operations}}
+{{newline}}
+      }
+  }
+  // scalastyle:on whitespace.end.of.line line.size.limit
+}

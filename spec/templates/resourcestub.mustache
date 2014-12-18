@@ -1,0 +1,42 @@
+package com.paypal.stingray.duke.autogen.api
+
+import spray.http.{StatusCodes, HttpResponse}
+import com.paypal.cascade.http.resource._
+import com.paypal.cascade.http.resource.HttpResourceActor.{ProcessRequest, ResourceContext}
+import scala.concurrent.Future
+import akka.actor.Actor
+
+/**
+ * AUTO GENERATED FILE
+ *     DO NOT EDIT
+ */
+trait Sample{{className}}Component {
+//scalastyle:off whitespace.end.of.line
+  this: {{className}}Component =>
+
+  type {{className}}ParsedRequest = String
+
+  /**
+   * Sample {{className}} implementation
+   */
+  class Sample{{className}}(context: ResourceContext) extends {{className}}(context) {
+
+    {{#operations}}
+    {{#operation}}
+    override def {{nickname}}(request: {{requestTypeClassName}}): Unit = {
+      complete(HttpResponse(StatusCodes.OK, request.toString))
+    }
+    {{/operation}}
+    {{/operations}}
+
+    override def resourceReceive: Actor.Receive = {
+      {{#operations}}
+      {{#operation}}
+      case ProcessRequest(req: {{requestTypeClassName}}) => {{nickname}}(req)
+      {{/operation}}
+      {{/operations}}
+{{!comment necessary to preserve spacing}}
+    }
+
+  }
+}

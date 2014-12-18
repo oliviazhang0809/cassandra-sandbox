@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.provider :openstack do |os, mycfg|
+    mycfg.ssh.pty = true
+    os.username     = ENV['OS_USERNAME']
+    os.api_key      = ENV['OS_PASSWORD']
+    os.flavor       = "small"
+    os.image        = "emi-centos-6.4-x86_64"
+    os.endpoint     = "#{ENV['OS_AUTH_URL']}/tokens"
+    os.ssh_username = "stack"
+    os.tenant       =  ENV['OS_TENANT_NAME']
+    os.keypair_name = "metrics"
+    os.user_data    ="#cloud-config\n\npackages:\n  - rsync"
+
+  end
+
+end
