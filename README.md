@@ -39,8 +39,16 @@ You can easily bring up your machine by
 ```
     $ scripts/start_vagrant.sh
 ```
-
 In the prompt, you can specify the `provider` of your machines: v -- virtualbox, o -- openstack.
+Also, the first time running this script, you will have some necessary gems installed if they were not there. For example, gem `puppet-lint` and `rake`. Once have them installed, you can do 
+```
+    $ rake lint
+```
+to check the Puppet style. And do 
+```
+    $ puppet-lint --fix /path/to/vagrant
+```
+to automatically fix style problems.
 
 If you are running with c3 instances, you need to set up `seed_ip` in `Vagrantfile` after you have seed node up so that the client nodes can have a recognizable ip address to join the cluster. Currently there is no way to automate this process since I'm not sure how to set up fixed IP address for c3 instance.
 

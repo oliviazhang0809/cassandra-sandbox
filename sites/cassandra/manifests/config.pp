@@ -16,7 +16,7 @@ class cassandra::config {
     mode    => '0644',
     notify  => Class[ 'cassandra::service' ],
   }
- 
+  
   # remove /var/lib/cassandra (do we need this?)
   file { [ '/var/lib/cassandra/commitlog', '/var/lib/cassandra/data', '/var/lib/cassandra/saved_caches' ]:
     ensure => absent,

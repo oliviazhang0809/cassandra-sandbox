@@ -7,7 +7,7 @@ class cassandra::repo {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('cassandra/datastax.repo'),
+    content => hiera('datastax.repo'),
   }
 
   # change 'https' => 'http'
@@ -16,7 +16,7 @@ class cassandra::repo {
     path    => '/etc/yum.repos.d/epel.repo',
     owner   => 'cassandra',
     group   => 'cassandra',
-    content => template('cassandra/epel.repo'),
+    content => hiera('epel.repo'),
   }
 
   # install cassandra - epel

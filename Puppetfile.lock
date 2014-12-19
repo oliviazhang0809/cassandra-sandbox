@@ -2,9 +2,12 @@ FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
     nanliu-staging (1.0.2)
+    puppetlabs-ntp (3.3.0)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-stdlib (4.4.0)
 
 DEPENDENCIES
   nanliu-staging (= 1.0.2)
+  puppetlabs-ntp (>= 0)
   puppetlabs-stdlib (= 4.4.0)
 
