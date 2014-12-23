@@ -1,4 +1,12 @@
 ---
 classes:
   - cassandra
-  - ntp
+  - ntpimpl
+
+panic: true
+driftfile: '/var/lib/ntp/ntp.drift'
+preferred_servers:
+  - 'ntp1.phx.ebay.com'
+servers:
+  - 'ntp1.phx.ebay.com'
+  - 'ntp2.phx.ebay.com'

@@ -5,6 +5,3 @@ gem install -q -v=1.1.1 --no-rdoc --no-ri hiera-file
 gem install -q -v=1.0.1 --no-rdoc --no-ri deep_merge
 
 puppet agent --enable
-
-# set time in box
-#ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
