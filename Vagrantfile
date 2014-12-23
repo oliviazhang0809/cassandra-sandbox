@@ -10,7 +10,7 @@ openstack_box = 'emi-centos-6.4-x86_64'
 provider = ENV['PROVIDER']                          # could be either "v: virtualbox" or "o: openstack"
 
 environment = "dev"
-seed_ip = 'x'
+seed_ip = "x"
 
 # for virtualbox
 virtual_box_domain = 'example.com'
