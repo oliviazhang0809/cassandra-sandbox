@@ -1,0 +1,4 @@
+---
+classes:
+  - puppet::master
+  - passenger

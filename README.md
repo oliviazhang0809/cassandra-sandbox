@@ -2,8 +2,9 @@
 
 ## Introduction
 
-This program is a multi-VM Vagrant-based Puppet development environment used for creating and testing cassandra cluster.
+This program is a multi-VM Vagrant-based Puppet development environment used for creating and testing cassandra cluster, tested on both virtualbox and c3 (openstack).
 
+* `puppet` - puppet master node
 * `seed` - cassandra seed node
 * `child1` - cassandra client node
 * `child2` - cassandra client node
@@ -20,6 +21,7 @@ Please check settings in `Vagrantfile`, to see if the following variables are se
 
 Running with virtualbox, these machines are using following IP addresses and ports:
 
+* _puppet_ - `172.16.32.10`
 * _seed_ - `172.16.32.11`
 * _child1_ - `172.16.32.12`
 * _child2_ - `172.16.32.13`
@@ -28,6 +30,24 @@ Running with virtualbox, these machines are using following IP addresses and por
 
 To bring up c3 instances, please finish steps in [INSTALLATION](https://github.paypal.com/Stingray/dev-environment/blob/develop/INSTALLATION.md) to have correct environment setup.
 Note: for this project, your keypair should be named as `cassandra` instead of `vagrant`.
+
+### Fix bug in c3 and vagrant-openstack-plugin
+If you encountered...
+1.  ssl handshake problem
+In ssl_socket.rb (mine is under /Users/tzhang1/.vagrant.d/gems/gems/excon-0.42.1/lib/excon/ssl_socket.rb), add
+```
+ssl_context.ssl_version = 'TLSv1' 
+```
+in line 28 (after where `ssl_context.ssl_version` is defined.)
+
+2. rsync not installed problem
+This is a well-known bug for vagrant-openstack-plugin.
+In sync_folders.rb (mine is under /Users/tzhang1/.vagrant.d/gems/gems/vagrant-openstack-plugin-0.11.1/lib/vagrant-openstack-plugin/action/sync_folders.rb), add
+```
+install_rsync = "yum -y install rsync"
+env[:machine].communicate.sudo(install_rsync)
+```
+Here I'm using centOS box, so I use `yum` to install. The basic idea is to install `rsync before `command` get executed.
 
 ### Correct Activation Order
 

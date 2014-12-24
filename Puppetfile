@@ -10,3 +10,7 @@ mod 'tylerwalts/jdk_oracle', '1.3.2'
 mod 'oliviazhang0809/puppetlabs-ntp',
   :git => 'https://github.com/oliviazhang0809/puppetlabs-ntp.git',
   :ref => '4fb81117a7a2af9c8ddbacf08afaba1c94353e84'
+mod 'oliviazhang0809/puppet',
+  :git => 'https://github.com/oliviazhang0809/puppet.git'
+mod 'oliviazhang0809/passenger',
+  :git => 'https://github.com/oliviazhang0809/passenger.git'

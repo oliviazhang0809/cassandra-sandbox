@@ -36,7 +36,7 @@ if [ $? -ne 0 ]; then
   echo "Installing: vagrant plugin: vagrant-openstack-plugin and dependencies"
   sudo gem install -q -v=0.5.0 fission
   # need to install 0.8.0 to make it work
-  sudo gem install -q -v=0.8.0 --no-rdoc --no-ri vagrant-openstack-plugin
+  sudo gem install -q -v=0.11.1 --no-rdoc --no-ri vagrant-openstack-plugin
   sudo vagrant plugin install vagrant-openstack-plugin --plugin-version 0.8.0
 fi
 
