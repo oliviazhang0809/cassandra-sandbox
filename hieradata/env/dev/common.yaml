@@ -1,9 +1,7 @@
 ---
-classes:
-  - puppet
 
 puppet_hostname: %{puppet_hostname}
-
+ssl_dir: '/var/lib/puppet/ssl'
 dse_version: '4.5.3-1'
 puppet_version: '3.7.3-1.el6'
 passenger_version: 4.0.53

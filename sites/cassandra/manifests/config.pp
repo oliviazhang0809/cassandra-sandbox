@@ -2,7 +2,7 @@
 class cassandra::config {
   $listen_address = $::ipaddress_eth1
   $seed_provider = hiera('seeds') ? {
-    "x" => "${::ipaddress}",
+    'x' => $::ipaddress,
     default => hiera('seeds')
   }
   

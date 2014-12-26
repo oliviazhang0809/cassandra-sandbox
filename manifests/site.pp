@@ -3,6 +3,10 @@
 #
 Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
+stage { 'last':
+ require => Stage['main'],
+ }
+ 
 hiera_include('classes')
 
 # remove warning about deprecated allow_virtual
