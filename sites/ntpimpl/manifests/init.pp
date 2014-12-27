@@ -1,3 +1,7 @@
+# Class: ntpimpl
+#
+# This class implements ntp module
+#
 class ntpimpl (
   $panic = hiera('panic'),
   $driftfile = hiera('driftfile'),

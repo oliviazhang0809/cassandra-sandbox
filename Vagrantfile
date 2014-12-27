@@ -69,11 +69,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
      node_config.vm.provision "shell", privileged: true, path: "scripts/setup.sh", args: [ node[:role], environment, puppet_hostname, seed_ip ]
 
-     if node[:role] == "master"
+    if node[:role] == "master"
        node_config.vm.synced_folder ".", "/var/www/puppet/", mount_options: ["dmode=777,fmode=666"]
        node_config.vm.provision "shell", inline: "rm -R /etc/puppet && cp -rf /var/www/puppet /etc"
        node_config.vm.provision :puppet do |puppet|
-         puppet.hiera_config_path = "hiera.yaml"
+         puppet.hiera_config_path = "hiera_pre.yaml"
          puppet.manifests_path = 'manifests'
          puppet.manifest_file  = "site.pp"
          puppet.module_path = ['modules', 'sites']
@@ -85,12 +85,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
            }
          puppet.options = "--verbose --debug --test"
        end
-     else
-       node_config.vm.provision "puppet_server" do |puppet|
-         puppet.puppet_server = puppet_hostname
-         puppet.options = "--verbose --debug --test --waitforcert 60"
-       end
-     end
+    end
+    
+    # puppet master is an agent itself
+    node_config.vm.provision "puppet_server" do |puppet|
+      puppet.puppet_server = puppet_hostname
+      puppet.options = "--verbose --debug --test --waitforcert 60"
+    end
 
      # shut off the firewall
      node_config.vm.provision "shell", inline: "iptables -F"

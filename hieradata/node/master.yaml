@@ -1,5 +1,4 @@
 ---
 classes:
-  - puppet::master
-  - passenger
   - pdb
+  - worker

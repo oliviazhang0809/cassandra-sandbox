@@ -3,6 +3,4 @@ classes:
   - repos
   - vagrant
   - puppet
-  - javaimpl
 
-java_version: '7'
