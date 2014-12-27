@@ -96,12 +96,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      # shut off the firewall
      node_config.vm.provision "shell", inline: "iptables -F"
      node_config.vm.provision "shell", inline: "service iptables save"
-
-     if node[:role] == "master"
-       node_config.vm.provision "shell", inline: "puppet apply -e 'include worker' "
-       node_config.vm.provision "shell", inline: "puppet agent -t"
-     end
-     
    end
  end
 end

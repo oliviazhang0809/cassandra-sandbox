@@ -11,5 +11,5 @@ class worker (
   class { 'puppetdb::master::config':
     puppetdb_server     => $puppet_hostname,
     puppet_service_name => 'httpd',
-  } 
+  }
 }
