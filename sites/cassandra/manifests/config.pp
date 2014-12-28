@@ -1,20 +1,21 @@
 # == Class: cassandra::config
 class cassandra::config {
   $listen_address = $::ipaddress_eth1
-  $seed_provider = hiera('seeds') ? {
-    'x' => $::ipaddress,
-    default => hiera('seeds')
+
+  concat{'/etc/dse/cassandra/cassandra.yaml':
+    owner  => 'cassandra',
+    group  => 'cassandra',
+    mode   => '0644',
+    notify => Class[ 'cassandra::service' ],
   }
-  
-  # check cassandra.yaml
-  file { 'cassandra.yaml':
-    ensure  => present,
-    content => template('cassandra/cassandra.yaml.erb'),
-    path    => '/etc/dse/cassandra/cassandra.yaml',
-    owner   => 'cassandra',
-    group   => 'cassandra',
-    mode    => '0644',
-    notify  => Class[ 'cassandra::service' ],
+
+  concat::fragment{'cassandra_config':
+      target  => '/etc/dse/cassandra/cassandra.yaml',
+      content => template('cassandra/cassandra.yaml.erb'),
+  }
+
+  Concat::Fragment <<| tag == 'seedhost' |>> {
+      target => '/etc/dse/cassandra/cassandra.yaml'
   }
   
   # remove /var/lib/cassandra (do we need this?)

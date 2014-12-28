@@ -18,18 +18,11 @@ class cassandra::repo {
     group   => 'cassandra',
     content => hiera('epel.repo'),
   }
-
+  
   # install cassandra - epel
-  $package_source = 'http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm'
-
-  # get the package
-  staging::file { 'epel-package':
-    source   => $package_source,
-  }
-
-  package { 'epel':
-    provider => 'rpm',
-    source   => '/opt/staging/cassandra/epel-package',
-    require  => Staging::File['epel-package'],
+  package { 'epel-release-6-8':
+    ensure   => present,
+    source   => 'http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm',
+    provider => rpm,
   }
 }

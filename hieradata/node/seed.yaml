@@ -3,9 +3,9 @@ classes:
   - cassandra
   - ntpimpl
   - javaimpl
+  - collector
 
 java_version: '7'
-seeds: %{seed_ip}
 panic: true
 driftfile: '/var/lib/ntp/ntp.drift'
 preferred_servers:

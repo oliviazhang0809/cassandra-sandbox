@@ -11,7 +11,6 @@ environment = "dev"
 # for virtualbox
 virtual_box_domain = 'example.com'
 virtual_box = 'centos-64-x64-vbox4210'
-virtualbox_seed_ip = "172.16.32.11,172.16.32.12"
 
 # for c3 instance
 openstack_box = 'emi-centos-6.4-x86_64'
@@ -19,7 +18,6 @@ openstack_box = 'emi-centos-6.4-x86_64'
 
 # MUST CHANGE EACH TIME
 puppet_hostname = "puppet.example.com" # change after puppet master is up
-seed_ip = "x" # change after seed is up
 
 puppet_nodes = [
  {:hostname => 'puppet',   :role => 'master',  :ip => '172.16.32.10', :autostart => true, :ram => 2048},
@@ -51,9 +49,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
      # only for virtualbox, hostname and ip need to be setup
      if provider == "v"
-       seed_ip = "172.16.32.11,172.16.32.12"
        node_config.vm.hostname = node[:hostname] + '.' + virtual_box_domain
        node_config.vm.network :private_network, ip: node[:ip]
+       
        # setup /etc/hosts for private network
        puppet_nodes.each do |n|
          if node[:hostname] != n[:hostname]
@@ -67,7 +65,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
      node_config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
-     node_config.vm.provision "shell", privileged: true, path: "scripts/setup.sh", args: [ node[:role], environment, puppet_hostname, seed_ip ]
+     node_config.vm.provision "shell", privileged: true, path: "scripts/setup.sh", args: [ node[:role], environment, puppet_hostname ]
 
     if node[:role] == "master"
        node_config.vm.synced_folder ".", "/var/www/puppet/", mount_options: ["dmode=777,fmode=666"]
@@ -80,7 +78,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
          puppet.facter = {
              "role" => node[:role],
              "environment" => environment,
-             "seed_ip" => seed_ip,
              "puppet_hostname" => puppet_hostname,
            }
          puppet.options = "--verbose --debug --test"
