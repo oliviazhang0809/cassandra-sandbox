@@ -21,20 +21,6 @@ FORGE
     tylerwalts-jdk_oracle (1.3.2)
 
 GIT
-  remote: https://github.com/oliviazhang0809/passenger.git
-  ref: master
-  sha: b3d94b9221e090bb469db3e061f309489325aed7
-  specs:
-    oliviazhang0809-passenger (0.0.1)
-
-GIT
-  remote: https://github.com/oliviazhang0809/puppet.git
-  ref: master
-  sha: 001ef3ce104af0033f132f95d615bb84839b7f19
-  specs:
-    oliviazhang0809-puppet (0.0.1)
-
-GIT
   remote: https://github.com/oliviazhang0809/puppetlabs-ntp.git
   ref: 4fb81117a7a2af9c8ddbacf08afaba1c94353e84
   sha: 4fb81117a7a2af9c8ddbacf08afaba1c94353e84
@@ -44,10 +30,8 @@ GIT
 
 DEPENDENCIES
   nanliu-staging (= 1.0.2)
-  oliviazhang0809-passenger (>= 0)
-  oliviazhang0809-puppet (>= 0)
   oliviazhang0809-puppetlabs-ntp (>= 0)
-  puppetlabs-puppetdb (>= 0)
+  puppetlabs-puppetdb (= 4.1.0)
   puppetlabs-stdlib (= 4.4.0)
   tylerwalts-jdk_oracle (= 1.3.2)
 

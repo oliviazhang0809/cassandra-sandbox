@@ -6,7 +6,7 @@ require 'vagrant-openstack-plugin'
 ################## Default settings #######################
 VAGRANTFILE_API_VERSION = "2"
 provider = ENV['PROVIDER']
-environment = "dev"
+user = ENV['OS_USERNAME']
 
 # for virtualbox
 virtual_box_domain = 'example.com'
@@ -16,8 +16,8 @@ virtual_box = 'centos-64-x64-vbox4210'
 openstack_box = 'emi-centos-6.4-x86_64'
 ######################################################
 
-# MUST CHANGE EACH TIME
-puppet_hostname = "puppet.example.com" # change after puppet master is up
+# MUST CHANGE AFTER PUPPETMASTER IS UP
+puppet_hostname = "puppet-554458.slc01.dev.ebayc3.com" # change after puppet master is up
 
 puppet_nodes = [
  {:hostname => 'puppet',   :role => 'master',  :ip => '172.16.32.10', :autostart => true, :ram => 2048},
@@ -49,6 +49,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
      # only for virtualbox, hostname and ip need to be setup
      if provider == "v"
+       environment = "dev"
        node_config.vm.hostname = node[:hostname] + '.' + virtual_box_domain
        node_config.vm.network :private_network, ip: node[:ip]
        
@@ -61,11 +62,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
            end
          end
        end
+     else 
+       environment = "prod"
      end
 
      node_config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
-     node_config.vm.provision "shell", privileged: true, path: "scripts/setup.sh", args: [ node[:role], environment, puppet_hostname ]
+     node_config.vm.provision "shell", privileged: true, path: "scripts/setup.sh", args: [ node[:role], environment, puppet_hostname, user ]
 
     if node[:role] == "master"
        node_config.vm.synced_folder ".", "/var/www/puppet/", mount_options: ["dmode=777,fmode=666"]
@@ -79,6 +82,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
              "role" => node[:role],
              "environment" => environment,
              "puppet_hostname" => puppet_hostname,
+             "user" => user,
            }
          puppet.options = "--verbose --debug --test"
        end
