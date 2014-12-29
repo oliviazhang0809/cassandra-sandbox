@@ -47,7 +47,10 @@ export PROVIDER=$PROVIDER
 echo "Starting vagrant..."
 # bring up machines based on provider
 if [ "$PROVIDER" = 'o' ]; then
+  vagrant up --provider=openstack puppet
   vagrant up --provider=openstack seed
+  vagrant up --provider=openstack child1
+  vagrant up --provider=openstack child2
 else
   vagrant up
 fi
