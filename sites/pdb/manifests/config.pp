@@ -29,6 +29,7 @@ if file_exists("${ssl_dir}/certs/ca.pem") == 1 {
 class { 'puppetdb::server':
   ssl_set_cert_paths => true,
   ssl_deploy_certs   => true,
+  ssl_listen_address => '0.0.0.0',
   ssl_key            => $ssl_key_content,
   ssl_cert           => $ssl_cert_content,
   ssl_ca_cert        => $ssl_ca_cert_content,

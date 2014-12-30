@@ -6,6 +6,7 @@
 :hierarchy:
   - prestage
   - puppet_provision
+  - env/%{environment}/common
   - common
   
 :yaml:

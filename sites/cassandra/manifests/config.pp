@@ -1,6 +1,7 @@
 # == Class: cassandra::config
 class cassandra::config {
   $listen_address = $::ipaddress_eth1
+  $cluster_name = $::cluster_name
 
   concat{'/etc/dse/cassandra/cassandra.yaml':
     owner  => 'cassandra',

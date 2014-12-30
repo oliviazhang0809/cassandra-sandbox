@@ -6,7 +6,9 @@ require 'vagrant-openstack-plugin'
 ################## Default settings #######################
 VAGRANTFILE_API_VERSION = "2"
 provider = ENV['PROVIDER']
-user = ENV['OS_USERNAME']
+# to ensure each user has dentical clusters
+cluster_name = "DevCluster"
+user = ENV['OS_USERNAME'] + "-" + cluster_name
 
 # for virtualbox
 virtual_box_domain = 'example.com'
@@ -16,8 +18,8 @@ virtual_box = 'centos-64-x64-vbox4210'
 openstack_box = 'emi-centos-6.4-x86_64'
 ######################################################
 
-# MUST CHANGE AFTER PUPPETMASTER IS UP
-puppet_hostname = "puppet-554458.slc01.dev.ebayc3.com" # change after puppet master is up
+# TODO MUST CHANGE AFTER PUPPETMASTER IS UP
+puppet_hostname = "puppet-555715.slc01.dev.ebayc3.com" # change after puppet master is up
 
 puppet_nodes = [
  {:hostname => 'puppet',   :role => 'master',  :ip => '172.16.32.10', :autostart => true, :ram => 2048},
@@ -68,7 +70,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
      node_config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
-     node_config.vm.provision "shell", privileged: true, path: "scripts/setup.sh", args: [ node[:role], environment, puppet_hostname, user ]
+     node_config.vm.provision "shell", privileged: true, path: "scripts/setup.sh", args: [ node[:role], environment, puppet_hostname, user, cluster_name ]
 
     if node[:role] == "master"
        node_config.vm.synced_folder ".", "/var/www/puppet/", mount_options: ["dmode=777,fmode=666"]
@@ -78,25 +80,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
          puppet.manifests_path = 'manifests'
          puppet.manifest_file  = "site.pp"
          puppet.module_path = ['modules', 'sites']
-         puppet.facter = {
-             "role" => node[:role],
-             "environment" => environment,
-             "puppet_hostname" => puppet_hostname,
-             "user" => user,
-           }
          puppet.options = "--verbose --debug --test"
        end
-    end
-    
-    # puppet master is an agent itself
-    node_config.vm.provision "puppet_server" do |puppet|
-      puppet.puppet_server = puppet_hostname
-      puppet.options = "--verbose --debug --test --waitforcert 60"
-    end
+     else
+       node_config.vm.provision "puppet_server" do |puppet|
+         puppet.puppet_server = puppet_hostname
+         puppet.options = "--verbose --debug --test --waitforcert 60"
+       end
+     end
 
      # shut off the firewall
-     node_config.vm.provision "shell", inline: "iptables -F"
-     node_config.vm.provision "shell", inline: "service iptables save"
+    node_config.vm.provision "shell", inline: "iptables -F"
+    node_config.vm.provision "shell", inline: "service iptables save"
    end
  end
 end

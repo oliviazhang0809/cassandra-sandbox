@@ -4,7 +4,7 @@ class collector (
   define exported_vars::set (
     $value = '',
     ){
-      @@concat::fragment {'cassandra_seed_hostname':
+      @@concat::fragment { "${::fqdn}_seed_hostname":
         content => "          - seeds: ${value}\n",
         tag     => "${::user}-seedhost",
        }
