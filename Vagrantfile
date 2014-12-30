@@ -37,6 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      vb.gui = false
      vb.memory = node[:ram]
      vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
    end
 
    config.vm.provider :openstack do |os, newconfig|
