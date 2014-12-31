@@ -58,13 +58,20 @@ You need to install some dependencies (gems, plugins, etc) before starting the p
 ```
 After which, you can use 
 ```
-    $ vagrant up
+    $ scripts/start_vagrant.sh
 ``` 
-to spin up virtualboxs or 
+to spin up virtualboxs or c3 nodes by answering the prompt question box on provider. 
+Alternatively, if you have already had `PROVIDER` as environmental variable setup, you can just run 
+```
+    $ vagrant up 
+```
+to boost virtual machines
 ```
     $ vagrant up --provider=openstack puppet
 ```
-to bring up  c3 nodes. Since puppet master should be up and running before client nodes, spin up master specifically before other nodes is recommended. 
+to bring up c3 instances.
+
+Since puppet master should be up and running before client nodes, spin up master specifically before other nodes is recommended. 
 
 Also, the first time running the bootstrap script, you will have some necessary gems installed if they were not there. For example, gem `puppet-lint` and `rake`. Once have them installed, you can do 
 ```
