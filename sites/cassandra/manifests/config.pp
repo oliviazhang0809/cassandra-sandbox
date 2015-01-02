@@ -15,7 +15,7 @@ class cassandra::config {
       content => template('cassandra/cassandra.yaml.erb'),
   }
 
-  Concat::Fragment <<| tag == "${::cluster_name}-seedhost" |>> {
+  Concat::Fragment <<| tag == "seedhost" |>> {
       target => '/etc/dse/cassandra/cassandra.yaml'
   }
   

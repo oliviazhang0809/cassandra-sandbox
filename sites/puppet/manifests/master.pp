@@ -31,5 +31,4 @@ class puppet::master {
   exec {'start_puppetmaster':
     command => 'sudo service puppetmaster start',
   }
-
 }

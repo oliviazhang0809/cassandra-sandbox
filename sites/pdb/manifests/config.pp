@@ -27,20 +27,9 @@ class pdb::config (
     $ssl_ca_cert_content = undef
   }
 
-  firewall { '5432 postgresql':
-      action => 'accept',
-      proto  => 'tcp',
-      dport  => '5432',
-  } ->
-
-  firewall { '8081 puppetdb':
-      action => 'accept',
-      proto  => 'tcp',
-      dport  => '8081',
-  } ->
-
   class { 'puppetdb':
     listen_address    => '0.0.0.0',
+    ssl_listen_address => '0.0.0.0',
     puppetdb_version  => $puppetdb_version,
     node_ttl          => $puppetdb_node_ttl,
     ssl_key                 => $ssl_key_content,

@@ -1,0 +1,26 @@
+---
+
+# puppet
+puppet_hostname: %{puppet_hostname}
+puppet_version: '3.7.3-1.el6'
+ssl_dir: '/var/lib/puppet/ssl'
+
+# passenger
+passenger_version: 4.0.53
+rack_version: '1.6.0'
+httpd_version: '2.2.15-39.el6.centos'
+ruby_devel_version: '1.8.7.374-3.el6_6'
+libcurl_devel_version: '7.19.7-40.el6_6.3'
+rubygem_version: '1.3.7-5.el6'
+
+# cassandra
+dse_version: '4.5.3-1'
+java_version: '7'
+jdk_version: '1.7.0_67'
+panic: true
+driftfile: '/var/lib/ntp/ntp.drift'
+preferred_servers:
+  - 'ntp1.phx.ebay.com'
+servers:
+  - 'ntp1.phx.ebay.com'
+  - 'ntp2.phx.ebay.com'

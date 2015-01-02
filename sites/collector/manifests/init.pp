@@ -11,7 +11,7 @@ class collector (
     ){
       @@concat::fragment { "${::hostname}_${timestamp}_seed_hostname":
         content => "          - seeds: ${value}\n",
-        tag     => "${::cluster_name}-seedhost",
+        tag     => "seedhost",
   }
 }
 
