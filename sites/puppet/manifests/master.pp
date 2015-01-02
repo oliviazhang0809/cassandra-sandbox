@@ -4,9 +4,9 @@
 #
 class puppet::master {
 
-  include puppet
   require puppet::puppet_repos
-
+  require puppet
+  
   package { 'puppet-server':
     ensure => $puppet::ensure,
   }
@@ -31,4 +31,5 @@ class puppet::master {
   exec {'start_puppetmaster':
     command => 'sudo service puppetmaster start',
   }
+
 }

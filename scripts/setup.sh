@@ -1,3 +1,4 @@
+#!/bin/sh
 # install puppet gem files
 gem install -q -v=3.7.3 --no-rdoc --no-ri puppet
 gem install -q -v=2.2.8 --no-rdoc --no-ri CFPropertyList
@@ -16,8 +17,7 @@ if [ $1 = "master" ] && [ $2 = "prod" ]; then
 else
   echo puppet_hostname=$3 > /etc/facter/facts.d/puppet_hostname.txt 
 fi
-echo user=$4 > /etc/facter/facts.d/user.txt 
-echo user=$5 > /etc/facter/facts.d/cluster_name.txt 
+echo cluster_name=$4 > /etc/facter/facts.d/cluster_name.txt 
 
 # installl puppet repos
 rpm -ivh http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-6.noarch.rpm

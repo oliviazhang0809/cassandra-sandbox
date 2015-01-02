@@ -1,4 +1,8 @@
 ---
 classes:
+  - puppet::master
+  - passenger
   - pdb
-  - worker
+
+puppetdb_version: '2.2.2-1.el6'
+puppetdb_node_ttl: '10s'

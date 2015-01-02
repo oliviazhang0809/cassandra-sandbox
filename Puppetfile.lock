@@ -1,7 +1,6 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
-    nanliu-staging (1.0.2)
     puppetlabs-apt (1.7.0)
       puppetlabs-stdlib (>= 2.2.1)
     puppetlabs-concat (1.1.2)
@@ -29,7 +28,6 @@ GIT
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
 
 DEPENDENCIES
-  nanliu-staging (= 1.0.2)
   oliviazhang0809-puppetlabs-ntp (>= 0)
   puppetlabs-puppetdb (= 4.1.0)
   puppetlabs-stdlib (= 4.4.0)

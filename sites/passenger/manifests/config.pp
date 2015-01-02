@@ -30,5 +30,6 @@ class passenger::config {
 
   exec {'deactivate_puppetmaster':
     command => $deactivated_master,
+    unless  => 'service puppetmaster status | grep dead 2>/dev/null',
   }
 }
