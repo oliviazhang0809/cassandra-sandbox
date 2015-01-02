@@ -30,5 +30,6 @@ class puppet::master {
   # puppet master need to be started at least once to create the SSL certificates to configure Apache
   exec {'start_puppetmaster':
     command => 'sudo service puppetmaster start',
+    unless => 'service httpd status',
   }
 }

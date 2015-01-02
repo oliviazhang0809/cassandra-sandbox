@@ -12,11 +12,14 @@ class javaimpl(
 
   exec { 'set_up_java':
         command => 'sudo alternatives --install /usr/bin/java java /opt/jdk1.7.0_67/bin/java 1',
+        unless => "alternatives --display java | grep '1.7.0'",
   } ->
   exec { 'set_up_javac':
         command => 'sudo alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_67/bin/javac 1',
+        unless => "alternatives --display java | grep '1.7.0'",
   } ->
   exec { 'set_up_jar':
         command => 'sudo alternatives --install /usr/bin/jar jar /opt/jdk1.7.0_67/bin/jar 1',
+        unless => "alternatives --display java | grep '1.7.0'", 
   }
 }
