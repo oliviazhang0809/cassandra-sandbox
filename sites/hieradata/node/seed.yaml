@@ -1,6 +1,0 @@
----
-classes:
-  - cassandra
-  - ntpimpl
-  - javaimpl
-  - collector

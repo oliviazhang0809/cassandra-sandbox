@@ -93,7 +93,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
     end
 
-     # shut off the firewall
+    # shut off the firewall
     node_config.vm.provision "shell", inline: "iptables -F"
     node_config.vm.provision "shell", inline: "service iptables save"
    end

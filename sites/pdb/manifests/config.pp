@@ -28,10 +28,10 @@ class pdb::config (
   }
 
   class { 'puppetdb':
-    listen_address    => '0.0.0.0',
-    ssl_listen_address => '0.0.0.0',
-    puppetdb_version  => $puppetdb_version,
-    node_ttl          => $puppetdb_node_ttl,
+    listen_address          => '0.0.0.0',
+    ssl_listen_address      => '0.0.0.0',
+    puppetdb_version        => $puppetdb_version,
+    node_ttl                => $puppetdb_node_ttl,
     ssl_key                 => $ssl_key_content,
     ssl_cert                => $ssl_cert_content,
     ssl_ca_cert             => $ssl_ca_cert_content,

@@ -6,7 +6,7 @@ class puppet::master {
 
   require puppet::puppet_repos
   require puppet
-  
+
   package { 'puppet-server':
     ensure => $puppet::ensure,
   }
@@ -30,6 +30,6 @@ class puppet::master {
   # puppet master need to be started at least once to create the SSL certificates to configure Apache
   exec {'start_puppetmaster':
     command => 'sudo service puppetmaster start',
-    unless => 'service httpd status',
+    unless  => 'service httpd status',
   }
 }
