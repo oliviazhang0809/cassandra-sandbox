@@ -6,13 +6,12 @@ This program is a multi-VM Vagrant-based Puppet development environment used for
 
 ## 2. Initial Setup
 ### 2.1 Default Value Setup
-
-The default setup is a three nodes cluster with two seed nodes managed by one master node with puppetDB installed. 
+The default setup is a three nodes cluster with two seed nodes and one child node managed by one master node with puppetDB installed. 
 * `puppet` - puppet master node
-* `seed1` - cassandra seed node
-* `seed2` - cassandra seed node
+* `seed1`, `seed2` - cassandra seed node
 * `child` - cassandra client node
 
+In `Vagrantfile` under `Default Settings` session, we have default parameters setup as following.
 #####`provider`
 `v` for  virtualbox, `o` for c3 instance.
 #####`cluster_name`
@@ -20,7 +19,9 @@ Name of your cluster.
 #####`puppet_nodes`
 Initial settings of all nodes including `hostname`, `role`, `ip`, `autostart` and `ram`.
 #####`puppet_hostname`
-The hostname of puppetmaster. **This is importance because puppet agent is using it to talk to master node**. By default, it's set as `puppet.example.com`. 
+The hostname of puppetmaster, **which needs to be changed if you are boosting openstack instance** (see 3.3 After Spin Up Puppetmaster [c3 instance]). 
+
+By default, it's set as `puppet.example.com`. 
 
 For further information, please check `Vagrantfile`, the `Default Setting` session.
 
@@ -31,7 +32,25 @@ To bring up c3 instances, please finish steps in [INSTALLATION](https://github.p
 
 ### 2.3 Correct Activation Order
 
-`puppet` node should be spinned up before all other nodes.
+`puppet` (the master) node should be brought up before all other nodes.
+
+### 2.4 Fix bug in c3 and vagrant-openstack-plugin
+If you encountered the following problems when boosting c3 instances.
+##### 2.4.1 - ssl handshake problem
+In ssl_socket.rb (mine is under `/Users/tzhang1/.vagrant.d/gems/gems/excon-0.42.1/lib/excon/ssl_socket.rb`), add
+```
+ssl_context.ssl_version = 'TLSv1' 
+```
+in line 28 (after where `ssl_context.ssl_version` is defined.)
+
+##### 2.4.2 - rsync not installed problem
+This is a well-known bug for vagrant-openstack-plugin.
+In sync_folders.rb (mine is under `/Users/tzhang1/.vagrant.d/gems/gems/vagrant-openstack-plugin-0.11.1/lib/vagrant-openstack-plugin/action/sync_folders.rb`), add
+```
+install_rsync = "yum -y install rsync"
+env[:machine].communicate.sudo(install_rsync)
+```
+Here I'm using centOS box, so I use `yum` to install. The basic idea is to install `rsync` before `command` get executed.
 
 ## 3. Bring up your machines
 
@@ -41,37 +60,30 @@ You need to install some dependencies (gems, plugins, etc) before starting the p
     $ scripts/bootstrap.sh
 ```
 ### 3.2 Every time you spin up your machine
-Please use 
+
 ```
     $ scripts/start_vagrant.sh
 ``` 
-And then answer prompt questions on provider to spin up virtualboxs or c3 instances. 
+This script will help you bring up all machines. You will need to answer questions on which provider (virtualbox or c3 instances) should be used for new machine. 
 
-**Alternatively**, if you have already set `PROVIDER` as environment variable (v: virtualbox, o: openstack), you can just run 
+**Alternatively**, if you have already set `PROVIDER` as environment variable (v: virtualbox, o: openstack), you can just run vagrant command:
+
+For virtual box:
 ```
     $ vagrant up 
 ```
-to boost virtual machines, or
+For c3 instance:
 ```
     $ vagrant up --provider=openstack puppet
 ```
-to bring up c3 instances.
-
+Since openstack provider will NOT bring up machines in order, I strongly recommend 
 ### 3.3 After Spin Up Puppetmaster
 
 **By default**, the program will spin up puppetmaster without activating all other nodes. 
-To fully bring up all machines.
-Please ssh into your puppet master.
-```
-    $ vagrant ssh puppet
-```
-And then `sudo -s` to become a super user and have a configuration run on master node.
-```
-    $ puppet agent -t
-```
-After the process get finished, `exit` the box. 
 
 **[ Virtualbox ]** 
+
+Since we know the `fqdn` of puppet master node (by default - `puppet.example.com`), you can spin up other boxes just by
 ```
     $ vagrant up 
 ```
@@ -91,7 +103,7 @@ to check the Puppet style. And do
 to automatically fix style problems.
 
 ## 4. Check Your Handiwork 
-After machines are up and running, you can easily log in to your box by
+After machines are up and running, you can easily log into your box by
 ```
     $ vagrant ssh $box_name
 ```
