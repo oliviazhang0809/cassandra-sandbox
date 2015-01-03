@@ -89,6 +89,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     else
       node_config.vm.provision "puppet_server" do |puppet|
         puppet.puppet_server = puppet_hostname
+        puppet.puppet_node = node[:hostname]
         puppet.options = "--verbose --debug --test --waitforcert 60"
       end
     end

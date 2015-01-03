@@ -22,5 +22,6 @@ class cassandra::config {
   # ensure java version is 7 or higher
   exec { 'set_java_7':
     command => 'sudo alternatives --set java /opt/jdk1.7.0_67/bin/java',
+    unless => "alternatives --display java | grep \"link currently points to /opt/jdk1.7.0_67/bin/java\"",
   }
 }

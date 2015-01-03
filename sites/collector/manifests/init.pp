@@ -7,8 +7,9 @@ class collector (
   ){
   define exported_vars::set (
     $value = '',
-    ){
-      @@concat::fragment { "${::hostname}_seed_hostname":
+    $timestamp = generate('/bin/date', '+%Y%d%m%H%M%S'),
+    ){ 
+      @@concat::fragment { "seedhost${timestamp}":
         content => "          - seeds: ${value}\n",
         tag     => 'seedhost',
   }
