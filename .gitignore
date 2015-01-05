@@ -1,2 +1,5 @@
 .vagrant/
 ssl/
+module/
+.tmp/
+.librarian/
