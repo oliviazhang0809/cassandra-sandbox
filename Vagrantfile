@@ -26,12 +26,12 @@ puppet_nodes = [
  {:hostname => 'seed2', :role => 'seed', :ip => '172.16.32.12', :autostart => false, :ram => virtual_box_ram},
  {:hostname => 'child', :role => 'child', :ip => '172.16.32.13', :autostart => false, :ram => virtual_box_ram},
 ]
-######################################################
 
 # TODO MUST CHANGE TO SPECIFIC FQDN AFTER PUPPETMASTER IS UP
 puppet_hostname = "puppet.example.com" 
 
-system('./scripts/set_provider.sh')
+######################################################
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   puppet_nodes.each do |node|
    config.vm.provider :virtualbox do |vb, newconfig|

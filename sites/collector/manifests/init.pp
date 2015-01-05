@@ -5,10 +5,11 @@
 class collector (
   $box_type = hiera('box_type')
   ){
+  # exported_vars::set { 'value': }
   define exported_vars::set (
     $value = '',
     $timestamp = generate('/bin/date', '+%Y%d%m%H%M%S'),
-    ){ 
+    ){
       @@concat::fragment { "seedhost${timestamp}":
         content => "          - seeds: ${value}\n",
         tag     => 'seedhost',
