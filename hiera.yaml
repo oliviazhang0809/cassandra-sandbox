@@ -4,7 +4,6 @@
   - yaml
 
 :hierarchy:
-  - prestage
   - node/%{role}
   - env/%{environment}/common
   - common

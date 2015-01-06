@@ -23,6 +23,7 @@ fi
 
 echo "Importing modules..."
 librarian-puppet install --verbose
+mv modules/puppetlabs-ntp modules/ntp
 
 which puppet-lint
 if [ $? -ne 0 ]; then

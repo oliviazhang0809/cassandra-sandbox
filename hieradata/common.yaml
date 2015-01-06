@@ -1,4 +1,7 @@
 ---
+classes:
+  - vagrant
+  - puppet
 
 # puppet
 puppet_hostname: %{puppet_hostname}
