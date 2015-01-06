@@ -10,18 +10,15 @@ class passenger::install (
   ) {
 
   package { [ 'httpd', 'httpd-devel', 'mod_ssl' ]:
-    #ensure   => $httpd_version,
-    ensure   => 'installed',
+    ensure   => $httpd_version,
   }
 
   package { 'ruby-devel':
-    #ensure   => $ruby_devel_version,
-    ensure   => 'installed',
+    ensure   => $ruby_devel_version,
   }
 
   package { 'libcurl-devel':
-    #ensure   => $libcurl_devel_version,
-    ensure   => 'installed',
+    ensure   => $libcurl_devel_version,
   }
 
   package { 'rubygems':
