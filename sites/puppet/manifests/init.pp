@@ -11,5 +11,5 @@ class puppet (
 
   class { 'puppet::install': } ->
   class { 'puppet::config': } ->
-  class {'puppet::service': }
+  class { 'puppet::service': }
 }

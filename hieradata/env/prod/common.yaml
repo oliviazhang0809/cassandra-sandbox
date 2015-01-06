@@ -1,2 +1,3 @@
 ---
-box_type: 1
+box_type: 'openstack'
+libcurl_devel_version: '7.19.7-37.el6_6.3'

@@ -1,2 +1,3 @@
 ---
-box_type: 0
+box_type: 'virtualbox'
+libcurl_devel_version: '7.19.7-40.el6_6.3'
