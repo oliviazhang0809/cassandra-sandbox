@@ -3,20 +3,23 @@
 # This class implements jdk_oracle module
 #
 class javaimpl(
-  $java_version = hiera('java_version'),
-  $jdk_version = hiera('jdk_version')
-  ){
+  $java_version = hiera('java_version')
+  ) {
 
   class { 'jdk_oracle':
       version => $java_version,
   } ->
-  javaimpl::set { 'set_java':
-    value => 'java',
+
+  exec { 'set_up_java':
+        command => 'sudo alternatives --install /usr/bin/java java /opt/jdk1.7.0_67/bin/java 1',
+        unless  => "alternatives --display java | grep '1.7.0'",
   } ->
-  javaimpl::set { 'set_javac':
-    value => 'javac',
+  exec { 'set_up_javac':
+        command => 'sudo alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_67/bin/javac 1',
+        unless  => "alternatives --display java | grep '1.7.0'",
   } ->
-  javaimpl::set { 'set_jar':
-    value => 'jar',
+  exec { 'set_up_jar':
+        command => 'sudo alternatives --install /usr/bin/jar jar /opt/jdk1.7.0_67/bin/jar 1',
+        unless  => "alternatives --display java | grep '1.7.0'",
   }
 }

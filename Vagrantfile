@@ -28,7 +28,7 @@ puppet_nodes = [
 ]
 
 # TODO MUST CHANGE TO SPECIFIC FQDN AFTER PUPPETMASTER IS UP
-puppet_hostname = "puppet.example.com" 
+puppet_hostname = ENV['PUPPET_HOSTNAME'] or "puppet.example.com" 
 
 ######################################################
 
@@ -47,8 +47,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      newconfig.vm.box = openstack_box
      newconfig.vm.box_url = "http://stingray-vagrant.stratus.dev.ebay.com/vagrant/boxes/openstack/" + openstack_box + ".box"
      newconfig.ssh.private_key_path = "~/.ssh/" + keypair_name +".pem"
+     os.username     = ENV['OS_USERNAME']
+     os.api_key      = ENV['OS_PASSWORD']
+     os.flavor       = c3_box_flavor
+     os.image        = "emi-centos-6.4-x86_64"
+     os.endpoint     = "#{ENV['OS_AUTH_URL']}/tokens"
+     os.ssh_username = "stack"
+     os.tenant       =  ENV['OS_TENANT_NAME']
      os.keypair_name = keypair_name
-     os.flavor = c3_box_flavor
+     os.user_data    ="#cloud-config\n\npackages:\n  - rsync"
    end
 
    config.vm.define node[:hostname], autostart: node[:autostart] do |node_config|
@@ -89,7 +96,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     else
       node_config.vm.provision "puppet_server" do |puppet|
         puppet.puppet_server = puppet_hostname
-        puppet.puppet_node = node[:hostname]
+        puppet.puppet_node = node[:hostname] + `echo $RANDOM`
         puppet.options = "--verbose --debug --test --waitforcert 60"
       end
     end

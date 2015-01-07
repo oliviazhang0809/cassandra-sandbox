@@ -76,6 +76,8 @@ Here I'm using centOS box, so I use `yum` to install. The basic idea is to insta
 
 ## 3. Steps to bring up your machines
 
+Please go to `duke-serv/vagrant` and follow the instructions.
+
 ### 3.1 One time setup
 You need to install some dependencies (gems, plugins, etc) before starting the program the first time. Besides [vagrant](https://docs.vagrantup.com/v2/installation/), you can get everything setup by running
 ```
@@ -108,10 +110,29 @@ Since we know the `fqdn` of puppet master node (by default - `puppet.example.com
 ```
     $ vagrant up 
 ```
-**[ c3 instance ]** Please check the fqdn of your machine on c3 and change the name of `puppet_hostname` in `Vagrantfile` before
+**[ c3 instance ]** 
+
+Please check the fqdn of your machine on c3 and export `puppet_hostname` as environment variable.
+```
+    $ export PUPPET_HOSTNAME=$YOUR_MASTER_FQDN
+```
+
+and then you can `vagrant up` the other boxes.
+
 ```
     $ vagrant up --provider=openstack
 ```
+**Note** Boxes are not brought up in c3 in correct order if you just `vagrant up`. You may want to write a simple shell script 
+
+E.G.
+`to_be_remove.sh` with content of:
+```
+    vagrant up --provider=openstack seed1
+    vagrant up --provider=openstack seed2
+    vagrant up --provider=openstack child
+```
+And run it to ensure the order is correct.
+
 ### 3.4 Handy gems 
 The `bootstrap.sh` will install some necessary gems if they were not there such as `puppet-lint` and `rake`. Once have them installed, you can do 
 ```

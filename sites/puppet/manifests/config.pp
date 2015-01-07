@@ -80,7 +80,7 @@ class puppet::config {
   ini_setting { 'runinterval':
     section => 'agent',
     setting => 'runinterval',
-    value   => 60,
+    value   => 3600,
   }
 
   ini_setting { 'splay':

@@ -21,10 +21,6 @@ if [ $? -ne 0 ]; then
   vagrant plugin install vagrant-openstack-plugin --plugin-version 0.11.1
 fi
 
-echo "Importing modules..."
-librarian-puppet install --verbose
-mv modules/puppetlabs-ntp modules/ntp
-
 which puppet-lint
 if [ $? -ne 0 ]; then
   echo "Installing: gem puppet-lint and rake"
