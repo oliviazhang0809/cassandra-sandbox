@@ -86,7 +86,7 @@ You need to install some dependencies (gems, plugins, etc) before starting the p
 ### 3.2 Every time you spin up your machine
 
 ```
-    $ scripts/start_vagrant.sh
+    $ . scripts/start_vagrant.sh (This dot is important.)
 ``` 
 This script will help you bring up all machines. You will need to answer questions on which provider (virtualbox or c3 instances) should be used for new machine. 
 
